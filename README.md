@@ -17,6 +17,10 @@ cd into the project directory
     uvicorn store.main:app --reload
 
     # or 
-
+    
     python -m uvicorn store.main:app --reload
-         
+
+    admin : https://127.0.0.1:8000/django/admin/
+
+    docs : https://127.0.0.1:8000/docs/
+
