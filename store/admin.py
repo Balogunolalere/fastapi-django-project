@@ -4,8 +4,8 @@ from django.contrib import admin
 from .models import Item
 
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('id','name', 'price', 'description', 'image')
-    list_filter = ('name', 'price', 'description', 'image')
+    list_display = ('id','name', 'price', 'description', 'image', 'timestamp')
+    list_filter = ('name', 'price', 'description', 'image', 'timestamp')
     search_fields = ('name', 'price', 'description', 'image')
     prepopulated_fields = {'slug': ('name',)}
 

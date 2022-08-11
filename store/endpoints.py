@@ -22,6 +22,10 @@ def create_item(item: ItemCreateSchema):
 def read_items():
     return ItemSchema.from_django(Item.objects.all(), many=True)
 
+@router.get('/items/{item_slug}', response_model=ItemSchema)
+def read_item(item_slug: str):
+    return ItemSchema.from_django(Item.objects.get(slug=item_slug))
+
 @router.put('/items/{item_id}', response_model=ItemSchema)
 def update_item(item_id: int, item: ItemUpdateSchema):
     page = Item.objects.get(id=item_id)
