@@ -2,31 +2,20 @@ from typing import Optional
 
 from djantic import ModelSchema
 
-from .models import Item, UpdateItem
+from .models import Item
 
 
 class ItemCreateSchema(ModelSchema):
-    
-    slug: Optional[str] = None
-
     class Config:
         model = Item
-        include = [
-            'name',
-            'price',
-            'description',
-            'image',
-        ]
+        exclude = ('id', 'timestamp')
 
 class ItemUpdateSchema(ModelSchema):
-    
-    slug: Optional[str] = None
-
     class Config:
-        model = UpdateItem
-        include = [
-            'name',
-            'price',
-            'description',
-            'image',
-        ]
+        model = Item
+        exclude = ('id', 'timestamp', 'name', 'image', 'slug')
+        load_only = ('price', 'description',)
+
+class ItemSchema(ModelSchema):
+    class Config:
+        model = Item

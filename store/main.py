@@ -17,6 +17,8 @@ django_app = get_wsgi_application()
 app = FastAPI() 
 
 app.mount('/django/static', StaticFiles(directory='static'), name='static')
+# mount images
+app.mount('/django/images', StaticFiles(directory='images'), name='media')
 
 @app.get('/')
 async def root():

@@ -1,20 +1,12 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Item, UpdateItem
-
-class InlineUpdateItem(admin.TabularInline):
-    model = UpdateItem
-    extra = 1
+from .models import Item
 
 class ItemAdmin(admin.ModelAdmin):
-    inlines = [InlineUpdateItem]
-    list_display = ('name', 'price', 'description', 'image', 'slug')
-    list_filter = ('name', 'price', 'description', 'image', 'slug')
-    search_fields = ('name', 'price', 'description', 'image', 'slug')
-    ordering = ('name', 'price', 'description', 'image', 'slug')
-
-
+    list_display = ('id','name', 'price', 'description', 'image')
+    list_filter = ('name', 'price', 'description', 'image')
+    search_fields = ('name', 'price', 'description', 'image')
+    prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Item, ItemAdmin)
-admin.site.register(UpdateItem)
