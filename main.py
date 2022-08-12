@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from starception import StarceptionMiddleware
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.wsgi import WSGIMiddleware
 from django.core.wsgi import get_wsgi_application
@@ -17,13 +18,15 @@ from utils import authenticate_user, create_access_token, create_refresh_token, 
 
 django_app = get_wsgi_application()
 
-app = FastAPI() 
+app = FastAPI(debug=True) 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 app.mount('/django/static', StaticFiles(directory='static'), name='static')
 # mount images
 app.mount('/django/images', StaticFiles(directory='images'), name='media')
+
+app.add_middleware(StarceptionMiddleware)  # must be the first one!
 
 class User(BaseModel):
     username: str
